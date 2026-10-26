@@ -1,0 +1,37 @@
+name: Bug report
+description: Report an issue with the USB Companion build or installation
+title: '[Bug] '
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: 'Do not post MeshCore private keys, admin passwords, or exact home coordinates.'
+  - type: input
+    id: revision
+    attributes:
+      label: T-Beam board marking / revision
+      description: 'Example: T22_V1.1 (20210222)'
+    validations:
+      required: true
+  - type: dropdown
+    id: radio
+    attributes:
+      label: LoRa radio chip
+      options: ['SX1276 confirmed', 'Unknown', 'SX1262 (out of scope)']
+    validations:
+      required: true
+  - type: input
+    id: firmware
+    attributes:
+      label: Upstream MeshCore tag / commit
+      placeholder: companion-v1.17.1
+  - type: input
+    id: host
+    attributes:
+      label: Host OS / Python / PlatformIO versions
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce and sanitized logs
+    validations:
+      required: true
