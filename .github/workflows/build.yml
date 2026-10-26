@@ -11,6 +11,11 @@ on:
       - '.github/workflows/build.yml'
   pull_request:
   workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Upstream MeshCore release tag to build (e.g. companion-v1.18.0)'
+        required: false
+        default: 'companion-v1.18.0'
 
 permissions:
   contents: read
@@ -20,6 +25,8 @@ jobs:
     name: Validate and compile firmware
     runs-on: ubuntu-22.04
     timeout-minutes: 90
+    env:
+      BUILD_REF: ${{ inputs.ref || '' }}
     steps:
       - name: Checkout helper repository
         uses: actions/checkout@v4
@@ -32,11 +39,26 @@ jobs:
       - name: Install PlatformIO
         run: python -m pip install 'platformio==6.2.0'
       - name: Build upstream MeshCore USB Companion
-        run: python tools/build.py --no-install
+        run: |
+          if [ -n "$BUILD_REF" ]; then
+            echo "Building requested upstream tag: $BUILD_REF"
+            python tools/build.py --no-install --ref "$BUILD_REF"
+          else
+            echo "Building default upstream tag from tools/build.py"
+            python tools/build.py --no-install
+          fi
+      - name: Show build manifest
+        run: cat dist/manifest.json
+      - name: Determine artifact name from manifest
+        id: meta
+        run: |
+          REF=$(python -c "import json;print(json.load(open('dist/manifest.json'))['upstream_ref'])")
+          COMMIT=$(python -c "import json;print(json.load(open('dist/manifest.json'))['upstream_commit'][:7])")
+          echo "name=MeshCore-TBeam-SX1276-USB-${REF}-${COMMIT}-COMMUNITY" >> "$GITHUB_OUTPUT"
       - name: Archive firmware and checksums
         uses: actions/upload-artifact@v4
         with:
-          name: MeshCore-TBeam-SX1276-USB-v1.17.1-COMMUNITY
+          name: ${{ steps.meta.outputs.name }}
           path: |
             dist/*.bin
             dist/manifest.json
