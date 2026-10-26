@@ -20,13 +20,13 @@ python -m pip install 'esptool>=4.8,<5'
 **Windows:** substitute your detected COM port, e.g. `COM8`:
 
 ```powershell
-py -m esptool --chip esp32 --port COM8 --baud 115200 write_flash 0x0 "dist\TBeam_SX1276_USB_companion-v1.17.1_merged-0x0.bin"
+py -m esptool --chip esp32 --port COM8 --baud 115200 write_flash 0x0 "dist\TBeam_SX1276_USB_companion-v1.18.0_merged-0x0.bin"
 ```
 
 **Linux:** use the actual serial path (for example `/dev/ttyUSB0`):
 
 ```bash
-python3 -m esptool --chip esp32 --port /dev/ttyUSB0 --baud 115200 write_flash 0x0 dist/TBeam_SX1276_USB_companion-v1.17.1_merged-0x0.bin
+python3 -m esptool --chip esp32 --port /dev/ttyUSB0 --baud 115200 write_flash 0x0 dist/TBeam_SX1276_USB_companion-v1.18.0_merged-0x0.bin
 ```
 
 **Warning:** `0x0` is only correct for the **merged** image. If intentionally updating just the app on an already-compatible bootloader/partition layout, use the **`*_app-0x10000.bin`** file at `0x10000`, not `0x0`. First-time users should use the merged image.

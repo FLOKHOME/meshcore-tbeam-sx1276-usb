@@ -22,9 +22,9 @@ powershell.exe -ExecutionPolicy Bypass -File .\build.ps1
 
 `python tools/build.py --help` shows `--work-dir`, `--output-dir`, `--ref`, `--no-install`, and `--skip-merged`.
 
-Default source tag is `companion-v1.17.1` (upstream commit beginning `d929643`). The script:
+Default source tag is `companion-v1.18.0` (upstream commit beginning `81dbae5`). The script:
 
-1. Clones the exact MeshCore release tag into `.work/MeshCore-companion-v1.17.1` (only if missing).
+1. Clones the exact MeshCore release tag into `.work/MeshCore-companion-v1.18.0` (only if missing).
 2. Verifies the repository origin and required upstream files and conditional `ENABLE_USB_INTERFACE` code.
 3. Writes a new `platformio.local.ini` overlay and **refuses to overwrite someone else's customized overlay**.
 4. Builds `Tbeam_SX1276_companion_radio_usb` by inheriting the stock BLE target's source filters and libraries but replacing BLE build flags with USB flags.

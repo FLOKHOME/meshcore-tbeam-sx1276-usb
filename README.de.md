@@ -8,9 +8,9 @@
 
 Ein älterer **LilyGO/TTGO T-Beam mit ESP32 und SX1276** lässt sich als **MeshCore USB-Companion** betreiben. Damit kann er am PC oder über **Proxmox USB-Passthrough an Home Assistant OS** angebunden werden.
 
-Für diese Hardware wurde mit MeshCore **v1.17.1** eine eigene `companion_radio_usb`-Konfiguration kompiliert und erfolgreich getestet. Die offizielle Firmware-Auswahl bot für den klassischen T-Beam SX1276 bei diesem Release nur die BLE-Companion-Variante. Dieses Projekt baut deshalb aus den **unveränderten offiziellen MeshCore-Quellen** eine USB-Variante.
+Für diese Hardware wurde mit MeshCore **v1.18.0** eine eigene `companion_radio_usb`-Konfiguration kompiliert und erfolgreich getestet. Die offizielle Firmware-Auswahl bot für den klassischen T-Beam SX1276 bei diesem Release nur die BLE-Companion-Variante. Dieses Projekt baut deshalb aus den **unveränderten offiziellen MeshCore-Quellen** eine USB-Variante.
 
-**Erprobt:** T22_V1.1, SX1276, CP2104, OLED, USB-Serial, MeshCore v1.17.1, Home Assistant 3.0.2 unter HAOS/Proxmox. Andere Platinenrevisionen sind nicht automatisch bestätigt.
+**Erprobt:** T22_V1.1, SX1276, CP2104, OLED, USB-Serial, MeshCore v1.18.0, Home Assistant 3.0.2 unter HAOS/Proxmox. Andere Platinenrevisionen sind nicht automatisch bestätigt.
 
 ### Voraussetzungen
 
@@ -33,7 +33,7 @@ Unter Linux/macOS:
 ./build.sh
 ```
 
-Das Skript installiert PlatformIO nur bei Bedarf und holt MeshCore `companion-v1.17.1` in `.work/`. Der Originalcode wird nicht verändert: Die zusätzlichen Build-Optionen landen in der lokalen `platformio.local.ini`.
+Das Skript installiert PlatformIO nur bei Bedarf und holt MeshCore `companion-v1.18.0` in `.work/`. Der Originalcode wird nicht verändert: Die zusätzlichen Build-Optionen landen in der lokalen `platformio.local.ini`.
 
 Die fertige Firmware liegt in `dist/`:
 
@@ -48,7 +48,7 @@ Alte Konfiguration/Schlüssel ggf. vorher sichern. Antenne anschließen, alle se
 
 ```powershell
 py -m pip install "esptool>=4.8,<5"
-py -m esptool --chip esp32 --port COM8 --baud 115200 write_flash 0x0 "dist\TBeam_SX1276_USB_companion-v1.17.1_merged-0x0.bin"
+py -m esptool --chip esp32 --port COM8 --baud 115200 write_flash 0x0 "dist\TBeam_SX1276_USB_companion-v1.18.0_merged-0x0.bin"
 ```
 
 `COM8` ist nur ein Beispiel! Bei Bedarf IO0/BOOT halten, RST kurz drücken, BOOT loslassen und Flashvorgang neu starten. Siehe [FLASHING.md](docs/FLASHING.md).

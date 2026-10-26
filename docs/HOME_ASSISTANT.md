@@ -21,7 +21,7 @@ The tested device appeared as `10c4:ea60 Silicon Labs CP210x` (CP2104) and a `/d
 4. Select **USB / Serial**, the serial path and `115200` baud if offered.
 5. Check that the Companion's `Node Status` displays `Online` and radio frequency is as expected.
 
-The integration did connect to the tested USB firmware running MeshCore v1.17.1 without custom changes to HAOS. If your integration cannot communicate, review the DTR/RTS caveats in the troubleshooting guide.
+The integration did connect to the tested USB firmware running MeshCore v1.18.0 without custom changes to HAOS. If your integration cannot communicate, review the DTR/RTS caveats in the troubleshooting guide.
 
 ## C. Optional repeater monitoring
 

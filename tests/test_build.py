@@ -11,7 +11,7 @@ from build import OVERLAY, safe_ref, validate_upstream, write_overlay, ENVIRONME
 
 class TestBuild(unittest.TestCase):
     def test_tags_restricted(self):
-        self.assertEqual(safe_ref("companion-v1.17.1"), "companion-v1.17.1")
+        self.assertEqual(safe_ref("companion-v1.18.0"), "companion-v1.18.0")
         for value in ("--upload", "../main", "a/b", "foo bar", "foo;rm", ""):
             with self.subTest(value=value), self.assertRaises(ValueError):
                 safe_ref(value)

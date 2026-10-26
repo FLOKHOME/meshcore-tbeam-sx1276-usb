@@ -12,7 +12,7 @@
 
 MeshCore provides a `Tbeam_SX1276_companion_radio_ble` profile, but the upstream release we tested does **not** publish the matching `companion_radio_usb` firmware for this classic board. This small project supplies a **non-invasive PlatformIO overlay** that builds the existing MeshCore companion application with `ENABLE_USB_INTERFACE` and without Bluetooth. It **does not fork or replace** upstream MeshCore code.
 
-The overlay is based on a real working setup: a **T22_V1.1** board, **CP2104 USB serial**, **SX1276 / 868 MHz**, **OLED**, running **MeshCore v1.17.1**. The device successfully answered `meshcli infos` via USB and was connected to Home Assistant OS running under Proxmox, with live MeshCore data and repeater monitoring. **These observations do not establish compatibility with every T-Beam revision.**
+The overlay is based on a real working setup: a **T22_V1.1** board, **CP2104 USB serial**, **SX1276 / 868 MHz**, **OLED**, running **MeshCore v1.18.0**. The device successfully answered `meshcli infos` via USB and was connected to Home Assistant OS running under Proxmox, with live MeshCore data and repeater monitoring. **These observations do not establish compatibility with every T-Beam revision.**
 
 ## Hardware checklist
 
@@ -30,7 +30,7 @@ The overlay is based on a real working setup: a **T22_V1.1** board, **CP2104 USB
 
 ## Quick start — build
 
-Install [Python 3.11+](https://www.python.org/downloads/) and [Git](https://git-scm.com/downloads) (Git for Windows on Windows). The script installs **PlatformIO 6.2.0** if missing, clones the **MeshCore `companion-v1.17.1`** source tag, creates a local overlay, compiles the USB Companion, and generates checksums.
+Install [Python 3.11+](https://www.python.org/downloads/) and [Git](https://git-scm.com/downloads) (Git for Windows on Windows). The script installs **PlatformIO 6.2.0** if missing, clones the **MeshCore `companion-v1.18.0`** source tag, creates a local overlay, compiles the USB Companion, and generates checksums.
 
 **Windows (PowerShell):**
 
@@ -69,7 +69,7 @@ Then close PuTTY, browser serial consoles, and any other program holding the ser
 
 ```bash
 # Windows example: change COM8 to your own port and substitute the exact file
-python -m esptool --chip esp32 --port COM8 --baud 115200 write_flash 0x0 dist/TBeam_SX1276_USB_companion-v1.17.1_merged-0x0.bin
+python -m esptool --chip esp32 --port COM8 --baud 115200 write_flash 0x0 dist/TBeam_SX1276_USB_companion-v1.18.0_merged-0x0.bin
 ```
 
 On Linux, use a device such as `/dev/serial/by-id/...`. **Do not** use `0x0` with the `*_app-0x10000.bin` file. See [Flash guide](docs/FLASHING.md) for more.
@@ -118,7 +118,7 @@ GitHub Actions compiles the firmware and makes the `.bin` files available under 
 
 ## Upgrading MeshCore
 
-The **default remains the hardware-verified source tag** `companion-v1.17.1`. You can experiment with another upstream tag:
+The **default is the hardware-verified source tag** `companion-v1.18.0`. You can experiment with another upstream tag:
 
 ```bash
 python tools/build.py --ref companion-v1.18.0
