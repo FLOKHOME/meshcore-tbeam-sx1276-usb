@@ -1,0 +1,45 @@
+name: Build T-Beam SX1276 USB
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'tools/**'
+      - 'tests/**'
+      - 'build.ps1'
+      - 'build.sh'
+      - '.github/workflows/build.yml'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    name: Validate and compile firmware
+    runs-on: ubuntu-22.04
+    timeout-minutes: 90
+    steps:
+      - name: Checkout helper repository
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Install PlatformIO
+        run: python -m pip install 'platformio==6.2.0'
+      - name: Build upstream MeshCore USB Companion
+        run: python tools/build.py --no-install
+      - name: Archive firmware and checksums
+        uses: actions/upload-artifact@v4
+        with:
+          name: MeshCore-TBeam-SX1276-USB-v1.17.1-COMMUNITY
+          path: |
+            dist/*.bin
+            dist/manifest.json
+            dist/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 30
